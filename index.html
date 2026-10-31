@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEYORA - Connect the World</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#091426;color:white;font-family:Arial,sans-serif;padding-bottom:85px}
+header{padding:20px;display:flex;justify-content:space-between;align-items:center;background:#101f38;position:sticky;top:0}
+.logo{font-size:25px;font-weight:bold;color:#55d9ff;letter-spacing:2px}
+header button{background:none;border:0;color:white;font-size:23px}
+.welcome{padding:22px 18px}
+.welcome h2{font-size:23px;margin-bottom:8px}
+.welcome p{color:#9db0c9;font-size:14px}
+.stories{display:flex;gap:14px;padding:5px 16px 20px;overflow-x:auto}
+.story{text-align:center;min-width:65px;font-size:12px;color:#bdcce0}
+.circle{width:58px;height:58px;border-radius:50%;border:2px solid #55d9ff;background:#192d4b;display:grid;place-items:center;font-size:23px;margin:auto auto 6px}
+.post{background:#12213a;margin:12px;padding:15px;border-radius:16px}
+.user{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.avatar{width:40px;height:40px;border-radius:50%;background:#24476b;display:grid;place-items:center;font-size:20px}
+.user small{display:block;color:#9db0c9;margin-top:4px}
+.post p{line-height:1.6;color:#e0e9f5}
+.post-image{height:190px;border-radius:12px;margin-top:12px;background:linear-gradient(135deg,#123d65,#287caa,#342e70);display:grid;place-items:center;font-size:45px}
+.actions{display:flex;justify-content:space-around;margin-top:15px;padding-top:12px;border-top:1px solid #293a55}
+.actions button{border:0;background:none;color:#c6d7ed;font-size:14px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#101f38;border-top:1px solid #263c59;display:flex;justify-content:space-around;padding:12px 3px calc(12px + env(safe-area-inset-bottom));z-index:10}
+nav button{background:none;border:0;color:#9aacc5;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:5px}
+nav button span{font-size:21px}
+nav button.active{color:#55d9ff}
+#notice{padding:12px;color:#55d9ff;text-align:center}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">VEYORA</div>
+<button onclick="alert('Notifications coming soon!')">♧</button>
+</header>
+<section class="welcome">
+<h2>Welcome to VEYORA 🌍</h2>
+<p>Connect the World. Share Your World.</p>
+</section>
+<div class="stories">
+<div class="story"><div class="circle">＋</div>Your Story</div>
+<div class="story"><div class="circle">👨</div>Alex</div>
+<div class="story"><div class="circle">👩</div>Sophia</div>
+<div class="story"><div class="circle">🧑</div>David</div>
+<div class="story"><div class="circle">👩‍🦰</div>Emma</div>
+</div>
+<div id="content">
+<article class="post">
+<div class="user"><div class="avatar">👨</div><div><b>Alex Morgan</b><small>@alexmorgan · 2 hours ago</small></div></div>
+<p>Welcome to VEYORA! 🌍 A new place to connect, share and discover amazing people around the world. ❤️</p>
+<div class="post-image">🌍</div>
+<div class="actions">
+<button onclick="like(this)">♡ Like</button>
+<button onclick="alert('Comments coming soon!')">♧ Comment</button>
+<button onclick="alert('Share coming soon!')">↗ Share</button>
+</div>
+</article>
+<article class="post">
+<div class="user"><div class="avatar">👩</div><div><b>Sophia Lee</b><small>@sophialee · 4 hours ago</small></div></div>
+<p>Every day is a new opportunity to make beautiful memories! ✨</p>
+<div class="post-image">🌸</div>
+<div class="actions">
+<button onclick="like(this)">♡ Like</button>
+<button onclick="alert('Comments coming soon!')">♧ Comment</button>
+<button onclick="alert('Share coming soon!')">↗ Share</button>
+</div>
+</article>
+</div>
+<div id="notice"></div>
+<nav>
+<button class="active" onclick="tab('Home',this)"><span>⌂</span>Home</button>
+<button onclick="tab('Explore',this)"><span>⌕</span>Explore</button>
+<button onclick="tab('Create',this)"><span>＋</span>Create</button>
+<button onclick="tab('Reels',this)"><span>▷</span>Reels</button>
+<button onclick="tab('Messenger',this)"><span>✉</span>Messenger</button>
+<button onclick="tab('Profile',this)"><span>♙</span>Profile</button>
+</nav>
+<script>
+function like(btn){
+if(btn.dataset.liked==='yes'){
+btn.dataset.liked='no';btn.innerHTML='♡ Like';
+}else{
+btn.dataset.liked='yes';btn.innerHTML='♥ Liked';
+}
+}
+function tab(name,btn){
+document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+const content=document.getElementById('content');
+const notice=document.getElementById('notice');
+notice.innerHTML='';
+if(name==='Home'){location.reload();return}
+if(name==='Create'){
+content.innerHTML='<div class="post"><h3>Create a Post ✍️</h3><br><textarea id="postText" placeholder="What is on your mind?" style="width:100%;height:100px;padding:12px;border-radius:10px;background:#091426;color:white;border:1px solid #345"></textarea><br><br><button onclick="publish()" style="padding:12px 25px;background:#159dd0;color:white;border:0;border-radius:10px">Publish Post</button></div>';
+}else if(name==='Profile'){
+content.innerHTML='<div class="post" style="text-align:center;padding:35px"><div class="avatar" style="margin:auto;width:75px;height:75px">👤</div><h2 style="margin:15px">Your Profile</h2><p>Welcome to your VEYORA profile.</p><br><p>0 Followers · 0 Following</p></div>';
+}else{
+const icons={Explore:'🔎',Reels:'🎬',Messenger:'💬'};
+const descriptions={Explore:'Discover people and posts around the world.',Reels:'Watch and share short videos.',Messenger:'Connect with friends through private messages.'};
+content.innerHTML='<div class="post" style="text-align:center;padding:45px 15px"><div style="font-size:45px">'+icons[name]+'</div><h2 style="margin:15px">'+name+'</h2><p>'+descriptions[name]+'</p><p style="margin-top:15px;color:#55d9ff">Coming soon</p></div>';
+}
+}
+function publish(){
+const text=document.getElementById('postText').value.trim();
+if(!text){alert('Write something first!');return}
+document.getElementById('content').innerHTML='<article class="post"><div class="user"><div class="avatar">👤</div><b>You</b></div><p></p></article>'+document.getElementById('content').innerHTML;
+document.querySelector('#content .post p').textContent=text;
+}
+</script>
+</body>
+</html>
